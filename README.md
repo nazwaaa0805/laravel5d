@@ -1,74 +1,68 @@
-# Aplikasi Resep, Meal Planner & Daftar Belanja
+### Aturan Bisnis
 
-## Deskripsi
-
-Aplikasi berbasis web yang digunakan untuk menyimpan dan mengelola resep masakan, menyusun rencana makan mingguan, serta menghasilkan daftar belanja secara otomatis berdasarkan bahan dari resep yang telah dipilih.
-
-Project ini dibuat sebagai bagian dari tugas Pemrograman Web 2 menggunakan framework Laravel.
-
-## Fitur Utama
-
-* Manajemen resep
-* Manajemen kategori resep
-* Manajemen bahan dan takaran
-* Langkah-langkah memasak
-* Favorit resep
-* Meal planner
-* Daftar belanja otomatis
-* Penggabungan jumlah bahan dari beberapa resep
-* Role Admin dan User
+- Satu resep memiliki satu kategori dan dimiliki oleh satu pengguna.
+- Langkah memasak diurutkan berdasarkan step_number.
+- Takaran bahan disimpan di tabel pivot ingredient_recipe karena jumlahnya berbeda untuk setiap resep.
+- Pengguna hanya dapat melihat dan mengubah meal planner serta daftar belanjanya sendiri.
+- Daftar belanja dibuat dari seluruh meal_plan_items pada sebuah meal plan.
+- Jumlah bahan dihitung dari quantity bahan pada resep dikali rasio servings rencana terhadap servings resep.
+- Bahan yang sama dengan satuan yang sama dari beberapa resep digabung menjadi satu baris shopping_list_items.
 
 ## Teknologi
 
-* Laravel
-* PHP
-* MySQL
-* HTML
-* CSS
-* JavaScript
-* Git & GitHub
+- PHP 8.3+ dan Laravel
+- Blade templates
+- Tailwind CSS (via Vite)
+- MySQL
 
-## Database
+## Cara Menjalankan
 
-Database menggunakan beberapa tabel utama:
+# Clone repository
+git clone https://github.com/nazwaaa0805/laravel5d
+cd laravel5d
 
-* users
-* categories
-* recipes
-* recipe_steps
-* ingredients
-* ingredient_recipe
-* favorites
-* meal_plans
-* meal_plan_items
-* shopping_lists
-* shopping_list_items
+# Pindah ke branch P01
+git checkout feature/p01-database-design
 
-Relasi utama yang digunakan:
+# Install dependensi
+composer install
+npm install
 
-* One-to-Many
-* Many-to-Many
-* Pivot Table dengan atribut tambahan
+# Konfigurasi environment
+cp .env.example .env
+php artisan key:generate
 
-## P01 - Database Design
+# Atur koneksi database di file .env, lalu jalankan migration dan seeder
+php artisan migrate --seed
 
-Pada fase P01 dilakukan perancangan database yang meliputi:
+# Jalankan server pengembangan
+npm run dev
+php artisan serve
+Kemudian buka <http://localhost:8000>.
 
-1. Perancangan ERD
-2. Pembuatan migration
-3. Pembuatan model dan relasi
-4. Pembuatan seeder
+## Struktur Project
 
-### ERD
+app/Models/        Model Eloquent dan relasinya
+database/
+  migrations/      Definisi tabel
+  seeders/         Data awal (kategori, bahan, contoh resep)
+resources/views/   Template Blade
+docs/
+  erd.png          Gambar ERD
+## Roadmap
 
-ERD project menggambarkan hubungan antara User, Recipe, Category, Ingredient, Meal Plan, dan Shopping List.
+- [x] P01 — Perancangan database (ERD)
+- [ ] P01 — Migration, model + relasi, dan seeder
+- [ ] Autentikasi dan hak akses (admin / user)
+- [ ] CRUD kategori, bahan, dan resep
+- [ ] Favorit resep
+- [ ] Meal planner
+- [ ] Daftar belanja otomatis
 
-## Identitas
+## Penulis
 
-Nama: Nazwa Aulia Rizka
-NPM: 2410010338
-Kelas: 5D TI Reguler Banjarbaru
+Nazwa Aulia Rizka — NPM 2410010338 — Kelas 5D TI Reguler Banjarbaru
 
-## Status Project
+## Lisensi
 
-Project masih dalam tahap pengembangan.
+Dirilis di bawah [MIT License](https://opensource.org/licenses/MIT).
